@@ -1,0 +1,23 @@
+[
+  {
+    "role": "ADMIN",
+    "permission" : [
+      "READ",
+      "WRITE",
+      "MODIFY"
+    ]
+  },
+  {
+    "role": "CLIENT",
+    "permission" : [
+      "READ"
+    ]
+  },
+  {
+    "role": "MANAGER",
+    "permission" : [
+      "READ",
+      "MODIFY"
+    ]
+  }
+]
