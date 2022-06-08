@@ -1,0 +1,54 @@
+version: '3'
+
+volumes:
+  postgres_data:
+    driver: local
+  keycloak:
+    driver: local
+  nginx:
+    driver: local
+  db_data:
+services:
+
+
+  postgres:
+    image: postgres
+    container_name: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
+    ports:
+      - 5432:5432
+    command:
+      - "postgres"
+      - "-c"
+      - "wal_level=logical"
+
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:legacy
+    container_name: keycloak
+    environment:
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_SCHEMA: public
+      DB_PASSWORD: password
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: Pa55w0rd
+      PROXY_ADDRESS_FORWARDING: 'true'
+    #    entrypoint: ["mkdir", "/opt/jboss/keycloak/themes/keycloak-theme"]
+    volumes:
+      - keycloak:/var/lib/keycloak/data
+#      - ./keycloak-theme:/opt/jboss/keycloak/themes/keycloak-theme
+      #JDBC_PARAMS: "ssl=true"
+    ports:
+      - 8081:8080
+    depends_on:
+      - postgres
+#    extra_hosts:
+#      - "host.docker.internal:host-gateway"
