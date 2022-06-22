@@ -41,9 +41,12 @@ services:
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: Pa55w0rd
       PROXY_ADDRESS_FORWARDING: 'true'
+      KEYCLOAK_IMPORT: /tmp/demo-git-export.json
+      KC_IMPORT: /tmp/demo-git-export.json
     #    entrypoint: ["mkdir", "/opt/jboss/keycloak/themes/keycloak-theme"]
     volumes:
       - keycloak:/var/lib/keycloak/data
+      - ./demo-git-export.json:/tmp/demo-git-export.json:ro
 #      - ./keycloak-theme:/opt/jboss/keycloak/themes/keycloak-theme
       #JDBC_PARAMS: "ssl=true"
     ports:
