@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class CostumeKeycloakAuthenticationProvider extends KeycloakAuthenticatio
         while(var4.hasNext()) {
             String role = (String)var4.next();
             System.out.println("from the costume role: " + role);
-            grantedAuthorities.add(new KeycloakRole(role));
+            grantedAuthorities.add(new SimpleGrantedAuthority(role));
 
         }
 
